@@ -25,8 +25,42 @@ This commands includes
 <BR>
 • Other IP Commands e.g. show ip route etc.
 <BR>
+## Program
+
+  ```
+    while True:
+        print("\n--- Network Tools ---")
+        print("1. Ping Host")
+        print("2. NSLookup Host")
+        print("3. Traceroute Host")
+        print("4. Check Open Port")
+        print("5. Exit")
+        choice = input("Select an option: ")
+
+        if choice == '1':
+            ping_host(host)
+        elif choice == '2':
+            nslookup_host(host)
+        elif choice == '3':
+            traceroute_host(host)
+        elif choice == '4':
+            port = int(input("Enter port number to check: "))
+            check_port(host, port)
+        elif choice == '5':
+            print("Exiting.")
+            break
+        else:
+            print("Invalid option. Please try again.")
+
+if __name__ == "__main__":
+    main()
+
+```
+
+
 
 ## Output
+![image](https://github.com/user-attachments/assets/af153449-80da-404c-9c43-f60a40470b24)
 
 ## Result
 Thus Execution of Network commands Performed 
