@@ -25,42 +25,45 @@ This commands includes
 <BR>
 • Other IP Commands e.g. show ip route etc.
 <BR>
+
 ## Program
-
-  ```
-    while True:
-        print("\n--- Network Tools ---")
-        print("1. Ping Host")
-        print("2. NSLookup Host")
-        print("3. Traceroute Host")
-        print("4. Check Open Port")
-        print("5. Exit")
-        choice = input("Select an option: ")
-
-        if choice == '1':
-            ping_host(host)
-        elif choice == '2':
-            nslookup_host(host)
-        elif choice == '3':
-            traceroute_host(host)
-        elif choice == '4':
-            port = int(input("Enter port number to check: "))
-            check_port(host, port)
-        elif choice == '5':
-            print("Exiting.")
-            break
-        else:
-            print("Invalid option. Please try again.")
-
-if __name__ == "__main__":
-    main()
-
+CLIENT :
+```
+import socket
+from pythonping import ping
+s=socket.socket()
+s.bind(('localhost',8000))
+s.listen(5)
+c,addr=s.accept()
+while True:
+    hostname=c.recv(1024).decode()
+    try:
+        c.send(str(ping(hostname, verbose=False)).encode())
+    except KeyError:
+        c.send("Not Found".encode())
+```
+SERVER:
+```
+import socket
+s=socket.socket()
+s.connect(('localhost',8000))
+while True:
+    ip=input("Enter the website you want to ping ")
+    s.send(ip.encode())
+    print(s.recv(1024).decode())
+```
+TRACEROUTE COMMAND:
+```
+from scapy.all import*
+target = ["www.google.com"]
+result, unans = traceroute(target,maxttl=32)
+print(result,unans)
 ```
 
-
-
 ## Output
-![image](https://github.com/user-attachments/assets/af153449-80da-404c-9c43-f60a40470b24)
+![image](https://github.com/user-attachments/assets/cf0213b7-9094-4c7a-ac9e-36a927263eaa)
+![image](https://github.com/user-attachments/assets/00c71398-4f43-4130-a388-f79b557e94f0)
+
 
 ## Result
 Thus Execution of Network commands Performed 
